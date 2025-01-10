@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SongController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -13,4 +14,9 @@ Route::post('/register', [UserController::class, "store"]);
 Route::group(["middleware" => ["auth:sanctum"]], function () {
     Route::get('users', [UserController::class, 'index']);
     Route::post('logout/{user}', [AuthController::class, 'logout']);
+
+    Route::post('/song', [SongController::class, 'store']);
+    Route::put('/song/approve/{id}', [SongController::class, 'approve']);
+    Route::put('/song/reject/{id}', [SongController::class, 'reject']);
+    Route::delete('/song/{id}', [SongController::class, 'delete']);
 });
