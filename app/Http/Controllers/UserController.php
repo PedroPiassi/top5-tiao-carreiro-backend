@@ -2,36 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Exception;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index()
-    {
-        $users = User::get();
+    private $userService;
 
-        return response()->json([
-            'status' => true,
-            'users' => $users,
-        ], 201);
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
     }
 
-    public function logout(User $user)
+    public function index()
     {
-        try {
-            $user->tokens()->delete();
+        $result = $this->userService->getAll();
 
-            return response()->json([
-                'status' => true,
-                'message' => 'Deslogado com sucesso.',
-            ], 201);
-        } catch (Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Falha ao efetuar logout.',
-            ], 400);
-        }
+        return response()->json($result, $result['status'] ? 200 : 400);
+    }
+
+    public function store(Request $request)
+    {
+        $result = $this->userService->createUser($request);
+
+        return response()->json($result, $result['status'] ? 201 : 500);
     }
 }

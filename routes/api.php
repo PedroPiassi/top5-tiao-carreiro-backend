@@ -7,9 +7,10 @@ use Illuminate\Support\Facades\Route;
 
 // Rotas Públicas
 Route::post('/login', [AuthController::class, "login"])->name("login");
+Route::post('/register', [UserController::class, "store"]);
 
 // Rotas Privadas
 Route::group(["middleware" => ["auth:sanctum"]], function () {
     Route::get('users', [UserController::class, 'index']);
-    Route::post('logout/{user}', [UserController::class, 'logout']);
+    Route::post('logout/{user}', [AuthController::class, 'logout']);
 });
