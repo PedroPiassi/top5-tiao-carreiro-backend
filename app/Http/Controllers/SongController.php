@@ -22,6 +22,13 @@ class SongController extends Controller
         return response()->json($result, $result['status'] ? 201 : 404);
     }
 
+    public function getPerStatus($status)
+    {
+        $result = $this->songService->getPerStatus($status);
+
+        return response()->json($result, $result['status'] ? 200 : 404);
+    }
+
     public function approve($id)
     {
         if (!Auth::user()->isAdmin()) {

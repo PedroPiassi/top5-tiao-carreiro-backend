@@ -16,6 +16,7 @@ Route::group(["middleware" => ["auth:sanctum"]], function () {
     Route::post('logout/{user}', [AuthController::class, 'logout']);
 
     Route::post('/song', [SongController::class, 'store']);
+    Route::get('/song/{status}', [SongController::class, 'getPerStatus']);
     Route::put('/song/approve/{id}', [SongController::class, 'approve']);
     Route::put('/song/reject/{id}', [SongController::class, 'reject']);
     Route::delete('/song/{id}', [SongController::class, 'delete']);

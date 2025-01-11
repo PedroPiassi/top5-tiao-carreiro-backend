@@ -12,6 +12,11 @@ class SongRepository implements SongRepositoryInterface
         return Song::create($data);
     }
 
+    public function getPerStatus(string $status)
+    {
+        return Song::where('status', $status)->get();
+    }
+
     public function update($id, $status)
     {
         $song = Song::findOrFail($id);
@@ -28,6 +33,6 @@ class SongRepository implements SongRepositoryInterface
 
     public function findById($id)
     {
-        return Song::findOrFail($id);
+        return Song::where("youtube_id", $id);
     }
 }

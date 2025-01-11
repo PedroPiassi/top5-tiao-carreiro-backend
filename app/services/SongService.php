@@ -19,11 +19,20 @@ class SongService
             $videoId = $this->extractVideoId($data['url']);
             $videoInfo = $this->getVideoInfo($videoId);
 
+            $existingSong = $this->songRepository->findById([
+                'youtube_id' => $videoInfo['youtube_id']
+            ]);
+
+            if ($existingSong) {
+                return ['status' => false, 'message' => 'Esta música já está cadastrada.'];
+            }
+
             $this->songRepository->create([
                 'title' => $videoInfo['title'],
                 'views' => $videoInfo['views'],
                 'youtube_id' => $videoInfo['youtube_id'],
                 'thumbnail' => $videoInfo['thumb'],
+                'link' => $videoInfo['link'],
                 'status' => 'pending',
             ]);
 
@@ -31,6 +40,16 @@ class SongService
         } catch (\Exception $e) {
             return ['status' => false, 'message' => $e->getMessage()];
         }
+    }
+
+    public function getPerStatus(string $status)
+    {
+        $response = $this->songRepository->getPerStatus($status);
+
+        if ($response) {
+            return ['status' => true, 'message' => 'Músicas encontradas com sucesso.', 'songs' => $response];
+        }
+        return ['status' => false, 'message' => "Nenhuma música encontrada."];
     }
 
     public function approveSong($id)
@@ -110,6 +129,7 @@ class SongService
                 'views' => $views,
                 'youtube_id' => $videoId,
                 'thumb' => 'https://img.youtube.com/vi/'.$videoId.'/hqdefault.jpg',
+                'link' => "https://www.youtube.com/watch?v=" . $videoId,
             ];
         } catch (\GuzzleHttp\Exception\RequestException $e) {
             throw new \RuntimeException('Erro na requisição à página do YouTube: ' . $e->getMessage());

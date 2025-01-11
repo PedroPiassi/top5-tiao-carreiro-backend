@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Song extends Model
 {
-    protected $fillable = ['title', 'views', 'youtube_id', 'thumbnail', 'status'];
+    protected $fillable = ['title', 'views', 'youtube_id', 'thumbnail', 'link', 'status'];
 
     public const STATUS_PENDING = 'pending';
     public const STATUS_APPROVED = 'approved';

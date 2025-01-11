@@ -16,6 +16,7 @@ return new class () extends Migration {
             $table->integer('views');
             $table->string('youtube_id')->unique();
             $table->string('thumbnail');
+            $table->string('link');
             $table->string('status')->default('pending');
             ;
             $table->timestamps();
