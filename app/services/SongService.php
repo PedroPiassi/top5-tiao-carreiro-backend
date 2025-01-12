@@ -42,12 +42,32 @@ class SongService
         }
     }
 
-    public function getPerStatus(string $status)
+    public function getPerStatus(string $status, int $page, int $limit)
     {
-        $response = $this->songRepository->getPerStatus($status);
+        $response = $this->songRepository->getPerStatus($status, $page, $limit);
+
+        if (!empty($response)) {
+            return [
+                'status' => true,
+                'message' => 'Músicas encontradas com sucesso.',
+                'songs' => $response['data'],
+                'page' => $response['page'],
+                'limit' => $response['limit'],
+            ];
+        }
+        return ['status' => false, 'message' => "Nenhuma música encontrada."];
+    }
+
+    public function findAll(string $status)
+    {
+        $response = $this->songRepository->findAll($status);
 
         if ($response) {
-            return ['status' => true, 'message' => 'Músicas encontradas com sucesso.', 'songs' => $response];
+            return [
+                'status' => true,
+                'message' => 'Músicas encontradas com sucesso.',
+                'songs' => $response,
+            ];
         }
         return ['status' => false, 'message' => "Nenhuma música encontrada."];
     }

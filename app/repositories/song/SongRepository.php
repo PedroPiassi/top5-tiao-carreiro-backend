@@ -12,9 +12,29 @@ class SongRepository implements SongRepositoryInterface
         return Song::create($data);
     }
 
-    public function getPerStatus(string $status)
+    public function getPerStatus(string $status, int $page, int $limit)
     {
-        return Song::where('status', $status)->get();
+        $songs = Song::where('status', $status)
+            ->orderBy('views', 'desc')
+            ->skip(($page - 1) * $limit)
+            ->take($limit)
+            ->get();
+
+        return [
+            'status' => true,
+            'data' => $songs,
+            'page' => $page,
+            'limit' => $limit,
+        ];
+    }
+
+    public function findAll(string $status)
+    {
+        $songs = Song::where('status', $status)
+            ->orderBy('views', 'desc')
+            ->get();
+
+        return $songs;
     }
 
     public function update($id, $status)
@@ -33,6 +53,6 @@ class SongRepository implements SongRepositoryInterface
 
     public function findById($id)
     {
-        return Song::where("youtube_id", $id);
+        return Song::where("youtube_id", $id)->first();
     }
 }

@@ -22,9 +22,19 @@ class SongController extends Controller
         return response()->json($result, $result['status'] ? 201 : 404);
     }
 
-    public function getPerStatus($status)
+    public function getPerStatus(Request $request, $status)
     {
-        $result = $this->songService->getPerStatus($status);
+        $page = $request->query('page', 1);
+        $limit = $request->query('limit', 10);
+
+        $result = $this->songService->getPerStatus($status, $page, $limit);
+
+        return response()->json($result, $result['status'] ? 200 : 404);
+    }
+
+    public function findAll($status)
+    {
+        $result = $this->songService->findAll($status);
 
         return response()->json($result, $result['status'] ? 200 : 404);
     }
