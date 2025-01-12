@@ -1,6 +1,6 @@
-# Como rodar o backend
+# Projeto: Músicas Mais Tocadas de Tião Carreiro e Pardinho
 
-### Passo a passo
+### Como rodar o backend - Passo a passo
 
 Clone o Repositório
 
@@ -10,7 +10,7 @@ git clone https://github.com/PedroPiassi/top5-tiao-carreiro-backend.git
 
 Abra a pasta que você clonou o projeto.
 
-Tirei o .example do .env.exemple, para fica apenas .env.
+Tire o .example do .env.exemple, para que fiue apenas .env.
 
 ```sh
 .env.example => .env
