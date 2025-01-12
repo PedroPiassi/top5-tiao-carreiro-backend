@@ -34,6 +34,13 @@ class UserService
     public function createUser($data)
     {
         try {
+            if (empty($data->name) || empty($data->email) || empty($data->password)) {
+                return [
+                    'status' => false,
+                    'message' => 'Todos os campos são obrigatórios.',
+                ];
+            }
+
             $user = $this->userRepository->create([
                 'name' => $data->name,
                 'email' => $data->email,
