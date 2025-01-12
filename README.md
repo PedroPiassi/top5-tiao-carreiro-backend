@@ -18,6 +18,8 @@ Tire o .example do .env.exemple, para que fiue apenas .env.
 
 Rode o comando a baixo no terminal para subir o container do projeto
 
+Observação: você precisa ter o docker instalado em sua máquina.
+
 ```sh
 docker-compose up -d
 ```
@@ -50,4 +52,9 @@ Rodar as seders
 
 ```sh
 php artisan db:seed
+```
+
+Para rodar os testes, rode o comando a baixo no terminal:
+```sh
+php artisan test
 ```
