@@ -2,7 +2,7 @@
 
 ### Passo a passo
 
-Clone Repositório
+Clone o Repositório
 
 ```sh
 git clone https://github.com/PedroPiassi/top5-tiao-carreiro-backend.git
@@ -10,16 +10,16 @@ git clone https://github.com/PedroPiassi/top5-tiao-carreiro-backend.git
 
 Abra a pasta que você clonou o projeto.
 
-Suba o container do projeto
+Tirei o .example do .env.exemple, para fica apenas .env.
+
+```sh
+.env.example => .env
+```
+
+Rode o comando a baixo no terminal para subir o container do projeto
 
 ```sh
 docker-compose up -d
-```
-
-Crie o Arquivo .env
-
-```sh
-cp .env.example .env
 ```
 
 Acesse o container app
