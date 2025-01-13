@@ -14,6 +14,8 @@ class SongRepository implements SongRepositoryInterface
 
     public function getPerStatus(string $status, int $page, int $limit)
     {
+        $total = Song::where('status', $status)->count();
+
         $songs = Song::where('status', $status)
             ->orderBy('views', 'desc')
             ->skip(($page - 1) * $limit)
@@ -22,6 +24,7 @@ class SongRepository implements SongRepositoryInterface
 
         return [
             'status' => true,
+            'total' => $total,
             'data' => $songs,
             'page' => $page,
             'limit' => $limit,

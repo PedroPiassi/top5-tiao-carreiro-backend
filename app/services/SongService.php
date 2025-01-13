@@ -50,6 +50,7 @@ class SongService
             return [
                 'status' => true,
                 'message' => 'Músicas encontradas com sucesso.',
+                'total' => $response['total'],
                 'songs' => $response['data'],
                 'page' => $response['page'],
                 'limit' => $response['limit'],
